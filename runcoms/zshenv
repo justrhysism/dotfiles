@@ -1,0 +1,23 @@
+#
+# Defines environment variables.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Dotfiles Directory
+DOTFILES_DIR=${HOME}/.dotfiles
+
+# Custom Zgen Directory
+ZGEN_DIR=${DOTFILES_DIR}/system/zgen
+
+# Automate the process of running zgen reset
+ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc ${HOME}/.zshrc.local)
+
+# Homebrew (Because I can't remember where it should go)
+# export PATH="/usr/local/sbin:$PATH"
+
+# Ensure that a non-login, non-interactive shell has a defined environment.
+if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi

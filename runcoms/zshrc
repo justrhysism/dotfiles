@@ -1,0 +1,124 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Uses zgen: https://github.com/tarjoilija/zgen
+
+# Source zgen
+source "${ZGEN_DIR}/zgen.zsh"
+
+# Only build zgen init if required
+if ! zgen saved; then
+  echo "Creating zgen save"
+
+  # Specify Theme
+  zgen prezto prompt theme 'pure'
+
+  # Specify Prezto & Plugins
+  zgen prezto
+  zgen prezto archive
+  zgen prezto node
+  zgen prezto command-not-found
+  zgen prezto osx
+  zgen prezto utility
+  zgen prezto docker
+  zgen prezto gpg
+  zgen prezto history
+  zgen prezto history-substring-search
+  zgen prezto homebrew
+  zgen prezto utility
+
+  #
+  # Local
+  #
+  zgen load ${DOTFILES_DIR}/shell/zsh
+
+  #
+  # Git
+  #
+
+  # Ignore submodules when they are 'dirty', 'untracked', 'all', or 'none'.
+  zgen prezto git status ignore submodules 'all'  
+
+  #
+  # SSH
+  #
+  zgen prezto ssh load identities 'id_rsa'
+
+
+  #
+  # Syntax Highlighting
+  #
+
+  # Set syntax highlighters.
+  zgen prezto syntax-highlighting highlighters 'main' 'brackets' 'root'
+
+  # Set syntax highlighting styles.
+  zgen prezto syntax-highlighting styles \
+    'builtin' 'bg=blue' \
+    'command' 'bg=blue' \
+    'function' 'bg=blue'
+
+  #
+  # Autosuggestions
+  #
+
+  # Set the query found color.
+  zgen prezto autosuggestions color 'yes'
+  zgen prezto autosuggestions color found ''
+
+  #
+  # Terminal
+  #
+
+  # Window title format
+  zgen prezto terminal window-title format '%n@%m: %s'
+
+  # Tab title format
+  zgen prezto terminal tab-title format '%m: %s'
+
+  #
+  # Tmux
+  #
+
+  # Auto start a session when Zsh is launched in a local terminal.
+  zgen prezto tmux auto-start local 'yes'
+
+  # Auto start a session when Zsh is launched in a SSH connection.
+  zgen prezto tmux auto-start remote 'yes'
+
+  # Integrate with iTerm2.
+  zgen prezto tmux iterm integrate 'yes'
+
+  #
+  # Directory
+  #
+
+  zgen load supercrabtree/k
+
+
+  # 
+  # NVM
+  #
+
+  # Lazy load NVM
+  export NVM_LAZY_LOAD=true
+
+  # ZSH NVM
+  zgen load lukechilds/zsh-nvm
+
+  #
+  # ZGEN
+  #
+
+  # Autoupdate for zgen
+  zgen load unixorn/autoupdate-zgen
+
+  # 
+  # Final Plugins
+  # 
+  zgen prezto autosuggestions
+  zgen prezto completion
+
+  # generate the init script from plugins above
+  zgen save
+fi
