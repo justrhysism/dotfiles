@@ -56,7 +56,8 @@ if ! zgen saved; then
   #test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
   zgen load supercrabtree/k
-
+  zgen load marzocchi/zsh-notify
+  zgen load djui/alias-tips
 
   # 
   # NVM
@@ -64,6 +65,11 @@ if ! zgen saved; then
 
   # Lazy load NVM
   export NVM_LAZY_LOAD=true
+
+  #
+  # Java
+  #
+  export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)";
 
   # ZSH NVM
   zgen load lukechilds/zsh-nvm

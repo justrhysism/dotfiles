@@ -3,4 +3,9 @@
 #
 # ZSH Aliases
 #
-alias refreshenv='source ~/.zshrc'
+alias refreshenv='zgen reset && source ~/.zshrc'
+
+# TEMP
+alias docker-windows='eval $(docker-machine env 2016)'
+alias docker-mac='eval $(docker-machine env -unset)'
+alias powershell='pwsh $@'

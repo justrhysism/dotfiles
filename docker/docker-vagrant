@@ -1,0 +1,28 @@
+# Source: https://github.com/StefanScherer/dotfiles/blob/7ce1752b3fd397797d94ff9017cbfbfd50913d78/.functions#L152-L177
+
+function vagrantdm() {
+  if [ "$1" == "start" ]; then vg up $2; return; fi
+  if [ "$1" == "restart" ]; then vg reload $2; return; fi
+  if [ "$1" == "stop" ]; then vg halt $2; return; fi
+  if [ "$1" == "rm" ]; then vg destroy $2 $3; return; fi
+  if [ "$1" == "status" ]; then vg status $2; return; fi
+  if [ "$1" == "rdp" ]; then vg rdp $2; return; fi
+  if [ "$1" == "regenerate-certs" ]; then vg provision $2; return; fi
+  dmhelper $*
+}
+
+function azuredm() {
+  if [ "$1" == "start" ]; then azure vm start $2 $2; return; fi
+  if [ "$1" == "restart" ]; then azure vm restart $2 $2; return; fi
+  if [ "$1" == "stop" ]; then azure vm stop $2 $2; azure vm deallocate $2 $2; return; fi
+  if [ "$1" == "status" ]; then azure vm show $2 $2; return; fi
+  dmhelper $*
+}
+
+function dm() {
+  vagrantmachines=(2016 1709 insider)
+  case "${vagrantmachines[@]}" in  *"${!#}"*) vagrantdm $* ; return ;; esac
+  azuremachines=(az2016 az1709)
+  case "${azuremachines[@]}" in  *"${!#}"*) azuredm $* ; return ;; esac
+  dmhelper $*
+}
