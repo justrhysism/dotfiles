@@ -56,7 +56,7 @@ if ! zgen saved; then
   #test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
   zgen load supercrabtree/k
-  zgen load marzocchi/zsh-notify
+  #zgen load marzocchi/zsh-notify # Disable until an updated version is supported
   zgen load djui/alias-tips
 
   # 
@@ -70,6 +70,17 @@ if ! zgen saved; then
   # Java
   #
   export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)";
+
+
+  #
+  # .NET Core SDK
+  #
+  export PATH="$PATH:${HOME}/.dotnet/tools"
+
+  #
+  # Deno
+  #
+  export PATH="${HOME}/.deno/bin:$PATH"
 
   # ZSH NVM
   zgen load lukechilds/zsh-nvm
